@@ -1,0 +1,210 @@
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.menu_item {
+  width: 25%;
+  text-align: center;
+  padding: 0.06rem 0;
+}
+
+.menu_name {
+  color: #3c2314;
+  letter-spacing: 0.013rem;
+  font-size: 12px;
+}
+
+.menu_item img {
+  width: 0.45rem;
+  height: 0.45rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.cake_title {
+  border-top: 1px solid #fae9d6;
+  border-bottom: 1px solid #fae9d6;
+  background-color: #fcf6e5;
+  padding: 0.05rem 0;
+}
+
+.cake_title h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.cake_title p {
+  color: #aba9ab;
+  text-align: center;
+  margin-top: 0.1rem;
+  font-size: 0.12rem;
+}
+
+.cakes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cake_item {
+  width: 50%;
+  box-sizing: border-box;
+  margin-bottom: 0.2rem;
+}
+
+.cake_title1 {
+  font-size: 0.12rem;
+  color: #3C2314;
+  letter-spacing: 0.0075rem;
+  margin-top: 0.0375rem;
+  text-align: center;
+}
+
+.cake_desc {
+  margin: 5px 0.12rem;
+  border: 1px solid #e7e7e7;
+  height: 0.28rem;
+  line-height: 0.28rem;
+  text-align: center;
+}
+
+.cake_price {
+  color: #3c2314;
+  font-size: 0.12rem;
+  letter-spacing: 0.0075rem;
+}
+
+.add {
+  display: block;
+  font-size: 0.22rem;
+  font-weight: 200;
+  width: 0.22rem;
+  height: 0.22rem;
+  line-height: 0.22rem;
+  color: #AA8764;
+  padding: 0;
+  text-align: center;
+  border: 1px solid #AA8764;
+  border-radius: 50%;
+  margin-right: 0.1rem;
+  float: right;
+  margin-top: 2px;
+}
+
+.cake_img {
+  display: block;
+  width: 100%;
+}
+
+.cake_tit {
+  font-weight: 500;
+  padding-left: 0.21rem;
+  height: 0.38rem;
+  line-height: 0.38rem;
+  color: rgb(60, 35, 20);
+  font-size: 0.19rem;
+}
+
+.cake_desc1 {
+  display: flex;
+}
+
+.cake_desc1 img {
+  width: 50%;
+  height: 1.12rem;
+}
+
+.cak_right {
+  width: 50%;
+  padding-top: 0.03rem;
+  padding-left: 0.05rem;
+  box-sizing: border-box;
+  font-size: 12px;
+  color: #3C2314;
+  letter-spacing: 0.0075rem;
+}
+
+.cak_item {
+  padding-bottom: 0.06rem;
+}
+
+.cak_item img {
+  width: 0.25rem;
+  height: 0.25rem;
+  vertical-align: middle;
+  margin-right: 0.03rem;
+}
+
+.cak_price {
+  color: #AA8764;
+  font-weight: 500;
+  font-size: 0.23rem;
+}
+
+.cak_btn_wrap {
+  border-top: 1px solid #e7e7e7;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 0.06rem;
+}
+
+.add_cart,
+.cake_det {
+  display: inline-block;
+  background-color: #fff;
+  color: #3C2314;
+  height: 0.35rem;
+  line-height: 0.35rem;
+  margin: 0 auto;
+  font-size: 0.12rem;
+  letter-spacing: 0.0075rem;
+  width: 40%;
+  margin: 0 5%;
+  border: 1px solid #e7e7e7;
+  box-sizing: border-box;
+}
+
+.add_cart.activess {
+  background-color: #3C2314;
+  color: #fff;
+}
+
+.cake_size {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 0.12rem;
+  margin-top: 0.12rem;
+}
+
+.cake_size li {
+  text-align: center;
+  height: 0.37rem;
+  line-height: 0.37rem;
+  width: 0.68rem;
+  border: 1px solid #C8B49B;
+  ;
+  font-size: 0.12rem;
+  letter-spacing: 0.0075rem;
+  margin-right: 0.1rem;
+  margin-bottom: 0.1rem;
+}
+
+.cake_size li.actives {
+  background: url(https://images.ebeecake.com/img_c/size/selected.png) no-repeat;
+  background-position: bottom right;
+  border: 1px solid #3C2314;
+}
+
+.cov_wrap {
+  position: relative;
+}
+
+.cover {
+  background-color: #fff;
+  height: auto;
+}
+.van-cell__value--alone{
+  text-align: center;
+  color: #AA8764;
+}

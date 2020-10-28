@@ -1,0 +1,131 @@
+.menu {
+  display: flex;
+  background-color: #fff;
+  border-bottom: 1px solid #e7e7e7;
+}
+.menu a {
+  width: 25%;
+  text-align: center;
+}
+.menu a img {
+  display: block;
+  margin: 0.08rem auto 0.05rem auto;
+  width: 0.42rem;
+  height: 0.38rem;
+}
+.menu a span {
+  display: block;
+  line-height: 0.12rem;
+  text-align: center;
+  color: rgb(60, 35, 20);
+  font-size: 0.12rem;
+  margin-bottom: 0.08rem;
+}
+.banner {
+  font-size: 0;
+}
+.banner img {
+  width: 3.75rem;
+  height: 3.75rem;
+}
+.title {
+  height: 0.32rem;
+  line-height: 0.32rem;
+  font-size: 0.14rem;
+  color: #3c2314;
+  padding-left: 0.21rem;
+  font-weight: bold;
+  position: relative;
+  padding: 0.18rem 0;
+}
+.rec {
+  vertical-align: middle;
+  margin-left: 0.22rem;
+}
+.title_img {
+  width: 0.28rem;
+  height: 0.28rem;
+  vertical-align: middle;
+  margin-left: 0.1rem;
+}
+.more {
+  font-weight: normal;
+  position: absolute;
+  right: 0.1rem;
+  vertical-align: middle;
+  color: #3c2314;
+}
+.goods {
+  overflow-x: auto;
+  width: 100%;
+  height: 1.5rem;
+  text-align: center;
+  display: flex;
+  padding-bottom: 0.2rem;
+}
+.goods::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.goods_item {
+  width: 1.63rem;
+}
+.goods_img {
+  width: 1.63rem;
+  height: 1.17rem;
+}
+.goods_title {
+  font-size: 0.12rem;
+  color: #3c2314;
+}
+.goods_price {
+  color: #aa8764;
+  text-align: center;
+  font-size: 0.12rem;
+  margin-top: 0.05rem;
+}
+.item_img {
+  width: 1.56rem;
+  height: 1.56rem;
+}
+.item_title {
+  width: 1.12rem;
+  height: 0.33rem;
+  line-height: 0.33rem;
+  background-color: #fff;
+  color: #aa8764;
+  border: 1px solid #e7e7e7;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 1.39rem;
+  font-size: 0.12rem;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 0.105rem;
+}
+.item {
+  width: 50%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 0 0.105rem 0.225rem 0.105rem;
+  position: relative;
+}
+.item_desc {
+  font-size: 12px;
+  color: #3c2314;
+  letter-spacing: 0.0075rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.1rem;
+}
+.van-swipe__indicator{
+  background: #fff;
+  opacity:1!important;
+  width: 0.08rem!important;
+  height: 0.08rem!important;
+  display: inline-block;
+  margin: 0 5px!important;
+}
