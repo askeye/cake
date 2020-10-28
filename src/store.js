@@ -7,6 +7,7 @@ const store=new Vuex.Store({
     code:'',
     path:'',
     lists:[],
+    address:[],
   },
   getters: {
 

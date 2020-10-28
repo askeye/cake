@@ -79,7 +79,7 @@ const routes = [
     component: () => import('../views/Forget.vue'),
   },{
     // 收货地址
-    path:'/address',
+    path:'/address/:id',
     name:'address',
     component: () => import('../views/Address.vue'),
   },{

@@ -213,17 +213,80 @@ app.get('/order', (req, res) => {
     })
 })
 
+// 拿地址信息
+app.get('/address', (req, res) => {
+    if(req.query.id){
+        connection.query(`select * from address where id=${req.query.id} &&  user_phone=${req.query.user}`, function (err, result) {
+            const obj = {
+                status: 200,
+                data: result
+            }
+            res.json(obj);
+        })
+    }else{
+        connection.query(`select * from address where user_phone=${req.query.user}`, function (err, result) {
+            const obj = {
+                status: 200,
+                data: result
+            }
+            res.json(obj);
+        })
+    }
+})
 
-app.get('/test', (req, res) => {
-    connection.query(`select arrs from goods where id=3`, 
-    function (err, result) {
+// 删地址
+app.get('/del_address', (req, res) => {
+    connection.query(`DELETE FROM address WHERE id = ${req.query.id} && user_phone = '${req.query.user}'`, function (err, result) {
         const obj = {
             status: 200,
             data: result
         }
         res.json(obj);
-        console.log(req.query.receive_address);
     })
 })
 
+// 添加一条地址信息
+app.get('/add_address', (req, res) => {
+    connection.query(`insert into address (province,county,addressDetail,city,tel,name,user_phone,areaCode,postalCode,isDefault,address)  values 
+    ('${req.query.pro}','${req.query.county}','${req.query.addressDetail}','${req.query.city}','${req.query.tel}','${req.query.name}',
+    '${req.query.user_phone}','${req.query.areaCode}','${req.query.postalCode}','${req.query.isDefault}','${req.query.address}')`, function (err, result) {
+        const obj = {
+            status: 200,
+            data: result
+        }
+        res.json(obj);
+    })
+})
+// 更新地址信息
+app.get('/updata_address', (req, res) => {
+    connection.query(`update address set province='${req.query.pro}',county='${req.query.county}',addressDetail='${req.query.addressDetail}',city='${req.query.city}',
+    tel='${req.query.tel}',name='${req.query.name}',user_phone='${req.query.user_phone}',areaCode='${req.query.areaCode}',postalCode='${req.query.postalCode}',isDefault='${req.query.isDefault}',address='${req.query.address}' where id=${req.query.id}
+    `, function (err, result) {
+        const obj = {
+            status: 200,
+            data: result
+        }
+        res.json(obj);
+    })
+})
+// 更新默认地址
+app.get('/check', (req, res) => {
+    connection.query(`update address set isDefault=${req.query.isDefault} where id=${req.query.id}`, function (err, result) {
+        const obj = {
+            status: 200,
+            data: result
+        }
+        res.json(obj);
+    })
+})
+// 更新默认地址
+app.get('/false', (req, res) => {
+    connection.query(`update address set isDefault=false where user_phone='${req.query.user}'`, function (err, result) {
+        const obj = {
+            status: 200,
+            data: result
+        }
+        res.json(obj);
+    })
+})
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

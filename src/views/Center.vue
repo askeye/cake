@@ -18,7 +18,7 @@
           <img src="https://m.ebeecake.com/dist/images/ico_order.png" alt="">
           <p>我的订单</p>
         </div>
-        <div class="cen_item">
+        <div class="cen_item" @click="address">
           <img src="https://m.ebeecake.com/dist/images/ico_addr.png" alt="">
           <p>地址管理</p>
         </div>
@@ -54,6 +54,11 @@ export default {
     this.uname = localStorage.getItem('user');
   },
   methods:{
+    address(){
+      this.$router.push({
+        path:'/list_address'
+      })
+    },
     quit(){
       localStorage.removeItem('user');
       this.$router.push({
