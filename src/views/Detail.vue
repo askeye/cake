@@ -1,14 +1,19 @@
 <template>
   <div class="detail">
     <Topbar>
-      <slot class="det_tt" >
+      <slot class="det_tt">
         <van-icon name="arrow-left" @click="back" />
         <router-link to="/" style="vertical-align: middle">返回</router-link>
       </slot>
     </Topbar>
     <van-swipe class="my-swipe" :autoplay="2000" indicator-color="#3C2314">
-      <van-swipe-item v-for="(item, index) in data" :key="index">
-        <img :src="item" alt="" class="det_img" />
+      <van-swipe-item
+        v-for="(item, index) in data"
+        :key="index"
+      >
+      <div @click="big(index)">
+        <img :src="item" alt="" class="det_img"  />
+      </div>
       </van-swipe-item>
     </van-swipe>
     <div class="det_content">
@@ -20,13 +25,21 @@
         <div class="midu">
           <span>密度</span>
           <span class="i_box">
-            <i :class="['det_nor',{'activea':index<zd}]" v-for="(icon,index) in 5" :key="index"></i> 
+            <i
+              :class="['det_nor', { activea: index < zd }]"
+              v-for="(icon, index) in 5"
+              :key="index"
+            ></i>
           </span>
         </div>
         <div class="zhidu">
           <span>芝度</span>
           <span class="i_box">
-            <i :class="['det_nor',{'activea':index<md}]" v-for="(icon,index) in 5" :key="index"></i> 
+            <i
+              :class="['det_nor', { activea: index < md }]"
+              v-for="(icon, index) in 5"
+              :key="index"
+            ></i>
           </span>
         </div>
         <div class="det_info">16厘米 | 适合3-6人食用 ｜ +6套餐具</div>
@@ -41,21 +54,12 @@
     <div class="det_Cart">
       <span @click="add_cart($route.params.id)">加入购物车</span>
     </div>
-    <van-popup v-model="err" closeable style="width: 340px;
-      text-align: center;
-      height: 120px;
-      line-height: 120px;
-      border-radius: 7px;
-      font-size:0.12rem
-      letter-spacing: 0.01rem;
-      color:rgb(60,35,20)">
-      请先登录！
-    </van-popup>
     <Backtop />
   </div>
 </template>
 
 <script>
+import { ImagePreview } from 'vant';
 export default {
   name: "detail",
   data() {
@@ -63,7 +67,6 @@ export default {
       data: [],
       title: "",
       img_box:[],
-      err:false,
       zd:'',
       md:''
     };
@@ -71,13 +74,17 @@ export default {
   mounted() {
     this.get();
     this.detail();
-    this.axios.get(`http://localhost:3000/test`).then(res=>{
-      console.log(JSON.parse(res.data.data[0].arrs));
-    }).catch(err=>{
-      console.log(err);
-    })
   },
   methods: {
+    big(index){
+      ImagePreview({
+          images: this.data,
+          index:index,
+          showIndex:true,
+          loop:false, //是否循环播放
+          startPosition:index
+      })
+    },
     add_good(index){
       this.axios.get(`http://localhost:3000/cart_list?id=${index}&user=${localStorage.getItem('user')}&num=1`).then(res=>{
         console.log(res);
@@ -110,7 +117,7 @@ export default {
           })
         },2000)
       }else if(localStorage.getItem('user') == null){
-        this.err = true;
+        this.$toast.fail('请先登录');
       }
     },
     back() {
@@ -140,6 +147,7 @@ export default {
         });
     },
   },
+
 };
 </script>
 
@@ -245,7 +253,7 @@ export default {
   color: #fff;
   font-size: 0.12rem;
   letter-spacing: 0.013rem;
-  left:6%;
+  left: 6%;
   right: 6%;
   z-index: 10;
 }

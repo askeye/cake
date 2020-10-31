@@ -14,7 +14,6 @@
             v-model="number"
             @blur="test"
           />
-          <van-popup v-model="show" closeable>请输入正确的手机号</van-popup>
         </li>
         <li class="log_item">
           <span>验证码:</span>
@@ -47,7 +46,6 @@ export default {
       psw: "",
       code: "",
       num_bool: false,
-      show: false,
       cose:false,
       cose_bool:false,
       yes:false,
@@ -63,10 +61,9 @@ export default {
         var reg = /^1[34578]\d{9}$/;
         var bool = reg.test(this.number);
         if (!bool) {
-          this.show = true;
+          this.$toast.fail('请输入正确的手机号')
         }else{
           this.num_bool=true;
-          this.show = false;
         }
       }
     },

@@ -281,17 +281,6 @@
         </div>
       </div>
     </van-popup>
-    <van-popup v-model="err" closeable style="width: 340px;
-      text-align: center;
-      height: 120px;
-      line-height: 120px;
-      border-radius: 7px;
-      font-size:0.12rem
-      letter-spacing: 0.01rem;
-      color:rgb(60,35,20)">
-      请先登录！
-    </van-popup>
-
     <Backtop />
   </div>
 </template>
@@ -303,7 +292,6 @@ export default {
   name: "cake",
   data() {
     return {
-      err:false,
       show: false,
       good: [],
       creams: [],
@@ -444,7 +432,7 @@ export default {
         },2000)
       }else if(localStorage.getItem('user') == null){
         this.show = false;
-        this.err = true;
+        this.$toast.fail('请先登录');
       }
     },
     getGoods() {

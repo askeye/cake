@@ -146,6 +146,7 @@ export default {
   border-bottom: 1px solid #e9e9e9;
   text-align: center;
   font-size: 0.14rem;
+  letter-spacing: 0.013rem;
 }
 .quan {
   padding-left: 0.08rem;

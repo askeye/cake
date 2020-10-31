@@ -15,7 +15,6 @@
     :area-columns-placeholder="['请选择', '请选择', '请选择']"
     @save="onSave"
     @delete="onDelete(edits[0].id)"
-    @change-detail="onChangeDetail"
     @change-default="check"
   />
   </div>
@@ -87,13 +86,12 @@ export default {
     },
     onSave(content) {
       if(this.$route.params.id==0){
-        var address =  content.province + content.city + content.country + content.addressDetail;
-        console.log(address);
+        var address = content.province + content.city + content.country + content.addressDetail;
         this.axios.get(`http://localhost:3000/add_address?pro=${content.province}&county=${content.county}&addressDetail=${content.addressDetail}&city=${content.city}&tel=${content.tel}&name=${content.name}&user_phone=${localStorage.getItem('user')}&areaCode=${content.areaCode}&postalCode=${content.postalCode}&isDefault=${content.isDefault}&address=${address}`
         )
         .then(res=>{
-          console.log(res);
           this.$toast.success('添加成功');
+          setTimeout(()=>{this.$router.go(-1)},2000)
         }).catch(err=>{
           console.log(err);
         })
@@ -104,34 +102,21 @@ export default {
         )
         .then(res=>{   
           this.$toast.success('更新成功');
+          setTimeout(()=>{this.$router.go(-1)},2000)
         }).catch(err=>{
-          console.log(err);
         })
       }
 
     },
     onDelete(i) {
       this.axios.get(`http://localhost:3000/del_address?id=${i}&user=${localStorage.getItem('user')}`).then(res=>{
-        console.log(res);
         this.$toast.success('删除成功');
+        setTimeout(()=>{this.$router.go(-1)},2000)
       }).catch(err=>{
-        console.log(err);
       })
       setTimeout(()=>{
         this.$router.go(-1);
       },2000)
-    },
-    onChangeDetail(val) {
-      if (val) {
-        this.searchResult = [
-          {
-            name: '黄龙万科中心',
-            address: '杭州市西湖区',
-          },
-        ];
-      } else {
-        this.searchResult = [];
-      }
     },
   },
 };
@@ -145,12 +130,6 @@ export default {
 }
 .van-address-edit{
   padding: 0;
-}
-.van-address-edit__fields.van-field__label span{
-  width:0.65rem!important;
-  overflow: hidden;  font-size: 0.12rem;
-  letter-spacing: 0.0075rem;
-  color:rgb(60, 35, 20);
 }
 .login1_tit {
   background: #fff;
@@ -171,11 +150,13 @@ export default {
   margin-top: 0.14rem;
 }
 .van-button__content{
-      text-align: center;
+    text-align: center;
     width: 3.33rem;
     height: 0.35rem;
     line-height: 0.35rem;
     background-color: #3C2314!important;
     color: #FBF5DD;
 }
+
+
 </style>

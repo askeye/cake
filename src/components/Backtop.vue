@@ -15,12 +15,15 @@ export default {
     };
   },
   mounted() {
-    this.scroll()
+    window.addEventListener('scroll',this.scroll)
+  },
+  destroyed(){
+    window.removeEventListener('scroll',this.scroll)
   },
   methods: {
     scroll() {
       var that = this;
-      window.addEventListener("scroll", function () {
+      window.onscroll= function () {
         let scrollTop =
           window.pageYOffset ||
           document.documentElement.scrollTop ||
@@ -30,7 +33,7 @@ export default {
         }else{
           that.isActive = false;
         }
-      });
+      };
     },
     back() {
       window.scrollTo(0, 0);

@@ -21,11 +21,6 @@
       </li>
     </ul>
     <span class="laber_sign" @click="sign">登录</span>
-    <van-popup v-model="check" closeable>该手机号未注册</van-popup>
-    <van-popup v-model="success">登录成功</van-popup>
-    <van-popup v-model="kong" closeable>手机号或密码不能为空！</van-popup>
-    <van-popup v-model="numb" closeable>请输入正确的手机号</van-popup>
-    <van-popup v-model="wrong" closeable>用户名或密码错误，请重新输入！</van-popup>
     <router-link to="/login" class="login">新会员注册</router-link>
     <span class="forget">忘记密码？</span>
   </div>
@@ -37,33 +32,27 @@ export default {
     return {
       uname: "",
       psw: "",
-      check: false,
-      success: false,
-      kong: false,
-      numb: false,
-      wrong: false,
     };
   },
   methods: {
     sign() {
       if (this.uname == "" || this.psw == "") {
-        this.kong = true;
+        this.$toast.fail('手机号或密码不能为空！')
         return;
       }
       if (this.uname != "" && this.psw != "") {
         var reg = /^1[34578]\d{9}$/;
         var bool = reg.test(this.uname);
         if (!bool) {
-          this.numb = true;
+          this.$toast.fail('请输入正确的手机号')
           return;
         } else if (bool) {
-          this.numb = false;
           this.axios
             .get(`http://localhost:3000/selects?tel='${this.uname}'`)
             .then((res) => {
               if (res.data.data.length > 0) {
                 if (this.psw == res.data.data[0].password) {
-                  this.success = true;
+                  this.$$toast.success('登录成功')
                   localStorage.setItem("user", res.data.data[0].tel);
                   var that = this;
                   setTimeout(function () {
@@ -72,10 +61,10 @@ export default {
                     });
                   }, 1500);
                 } else {
-                  this.wrong = true;
+                  this.$toast.fail('用户名或密码错误，请重新输入！')
                 }
               } else if (res.data.data.length == 0) {
-                this.check = true;
+                this.$toast.fail('该手机号未注册')
                 this.psw = "";
               }
             })

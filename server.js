@@ -198,7 +198,7 @@ app.get('/check_id', (req, res) => {
     })
 })
 
-// 下单
+// 下单，把订单信息 存入数据库
 app.get('/order', (req, res) => {
     connection.query(`
     insert into orders (user_tel,receive_phone,receive_name,receive_address,good)  
@@ -210,6 +210,30 @@ app.get('/order', (req, res) => {
         }
         res.json(obj);
         console.log(req.query.receive_address);
+    })
+})
+
+// 下单成功后，把下单的产品从用户的购物车中删除
+app.get('/success', (req, res) => {
+        connection.query(`DELETE FROM cart WHERE user_phone = '${req.query.user}'`, 
+        function (err, result) {
+            const obj = {
+                status: 200,
+                data: result
+            }
+            res.json(obj);
+        })
+})
+
+// 读取用户全部的订单信息
+app.get('/allOrder', (req, res) => {
+    connection.query(`select * from orders WHERE user_tel = '${req.query.user}'`, 
+    function (err, result) {
+        const obj = {
+            status: 200,
+            data: result
+        }
+        res.json(obj);
     })
 })
 

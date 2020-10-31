@@ -7,7 +7,7 @@
       <router-link to='/' class="middle_logo"></router-link>
       <div class="right">
         <router-link to="/cart" class="cart"></router-link>
-        <span class="topbar_num">{{$store.state.lists.length }}</span>
+        <span class="topbar_num">{{$store.getters.count }}</span>
       </div>
   </div>
 </template>

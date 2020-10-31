@@ -1,7 +1,7 @@
 <template>
   <div class="detail_food">
     <Topbar></Topbar>
-    <div class="fo_det_item" v-for="(list, index) in lists" :key="index">
+    <div class="fo_det_item" v-for="(list, index) in lists" :key="index" :ref="index">
       <img :src="list.img" alt="" class="fo_det_img" />
       <p class="fo_det_title">{{ list.content_title }}</p>
       <div class="fo_det_content" v-html="list.content"></div>
@@ -21,6 +21,11 @@ export default {
     this.select();
   },
   methods: {
+    scroll(){
+      if(this.$route.params.id==1){
+        window.scrollTo()
+      }
+    },
     select() {
       this.axios
         .get(`http://localhost:3000/food`)

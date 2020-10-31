@@ -14,7 +14,7 @@
     </div>
     <div class="cen_bottom">
       <div class="cen_box">
-        <div class="cen_item">
+        <div class="cen_item" @click="order">
           <img src="https://m.ebeecake.com/dist/images/ico_order.png" alt="">
           <p>我的订单</p>
         </div>
@@ -22,17 +22,9 @@
           <img src="https://m.ebeecake.com/dist/images/ico_addr.png" alt="">
           <p>地址管理</p>
         </div>
-        <div class="cen_item">
-          <img src="https://m.ebeecake.com/dist/images/ico_sfee.png" alt="">
-          <p>购买免运费服务</p>
-        </div>
         <div class="cen_item" @click="change_psw" >
           <img src="https://m.ebeecake.com/dist/images/ico_pwd.png" alt="">
           <p>修改密码</p>
-        </div>
-        <div class="cen_item">
-          <img src="https://m.ebeecake.com/dist/images/ico_pl.png" alt="">
-          <p>我的评论</p>
         </div>
       </div>
     </div>
@@ -54,6 +46,11 @@ export default {
     this.uname = localStorage.getItem('user');
   },
   methods:{
+    order(){
+      this.$router.push({
+        path:'/order'
+      })
+    },
     address(){
       this.$router.push({
         path:'/list_address'
@@ -69,17 +66,6 @@ export default {
       this.$router.push({
         path:'/forget',
       })
-    }
-  },
-  beforeRouteEnter (to, from, next) {
-    if(to.path=='/center'){
-      if(!localStorage.getItem('user')){
-        next({
-          path:'/sign'
-        })
-      }else{
-        next()
-      }
     }
   },
 }
@@ -128,5 +114,7 @@ export default {
    line-height: 0.45rem;
    margin-top: 0.75rem;
    text-align: center;
+   font-weight: bold;
+   letter-spacing: 0.013rem;
  }
 </style>

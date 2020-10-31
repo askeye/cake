@@ -43,17 +43,6 @@
       <div class="cart_info">
         <van-cell-group>
           <van-cell title="配送" />
-          <!-- <van-field
-            v-model="order_name"
-            label="订货人"
-            placeholder="请填写您的姓名"
-          />
-          <van-field
-            v-model="order_phone"
-            label="订货手机"
-            type="tel"
-            placeholder="请填写您的手机号"
-          /> -->
           <van-field
             v-model="receive_name"
             label="收货人"
@@ -79,6 +68,7 @@
         />
       </div>
       <van-submit-bar
+        id="cart_submit"
         label="实付："
         :price="sum * 100"
         decimal-length:0
@@ -127,13 +117,12 @@
 <script>
 export default {
   name: "cart",
+  inject: ["reload"],
   data() {
     return {
-      yes:false,
-      numb:false,
+      yes: false,
+      numb: false,
       adress: null,
-      order_name: null,
-      order_phone: null,
       receive_name: null,
       receive_phone: null,
       show: false,
@@ -151,32 +140,57 @@ export default {
   mounted() {
     this.get_cart();
     this.give();
+    this.getAddress()
   },
   methods: {
-    submit(){
-      if(this.receive_phone!=''&&this.receive_phone!=''&&this.adress!=''){
-        if(this.receive_phone!=''){
-          var reg = /^1[34578]\d{9}$/;
-          var bool = reg.test(this.receive_phone);
-          if (!bool) {
-            this.numb = true;
-            return;
+    getAddress(){
+      this.axios.get(`http://localhost:3000/address?user=${localStorage.getItem('user')}`).then(res=>{
+        console.log(res);
+        for(var i=0;i<res.data.data.length;i++){
+          if(res.data.data[i].isDefault=='true'){
+            console.log(1111);
+            this.receive_name = res.data.data[i].name;
+            this.receive_phone = res.data.data[i].tel;
+            this.adress = res.data.data[i].address;
           }
         }
-        this.axios.get(`http://localhost:3000/order?user_tel=${localStorage.getItem('user')}&receive_phone=${this.receive_phone}&receive_name=${this.receive_name}&receive_address=${this.adress}&good=${this.lists}`)
-        .then(res=>{
-          this.yes = true;
-          this.lists = [];
-          this.$store.commit("change", []);
-          // 这里不对
-          var that= this;
-          setTimeout(function(){
-            that.$router.push('/')
-          },2000)
-        }).catch(err=>{
-          console.log(err);
-        })
+      })
+    },
+    refresh() {
+      this.reload();
+    },
+    submit() {
+      if (
+        this.receive_phone != "" &&
+        this.receive_phone != "" &&
+        this.adress != ""
+      ) {
+        this.axios
+          .get(
+            `http://localhost:3000/order?user_tel=${localStorage.getItem(
+              "user"
+            )}&receive_phone=${this.receive_phone}&receive_name=${
+              this.receive_name
+            }&receive_address=${this.adress}&good=${JSON.stringify(this.lists)}`
+          )
+          .then((res) => {
+            this.success();
+            this.get_cart();
+            this.$toast.success("购买成功！测试商品不发货");
+          });
+      }else{
+        this.$toast.fail('请填写信息')
       }
+    },
+    success() {
+      this.axios
+        .get(
+          `http://localhost:3000/success?user=${localStorage.getItem("user")}`
+        )
+        .then((res) => {
+        })
+        .catch((err) => {
+        });
     },
     down(i) {
       this.$router.push({
@@ -190,7 +204,6 @@ export default {
           this.ads = res.data.data;
         })
         .catch((err) => {
-          console.log(err);
         });
     },
     back() {
@@ -203,18 +216,15 @@ export default {
           this.get_cart();
         })
         .catch((err) => {
-          console.log(err);
         });
     },
     add(i) {
       this.axios
         .get(`http://localhost:3000/add_num?id=${i}`)
         .then((res) => {
-          console.log(res);
           this.get_cart();
         })
         .catch((err) => {
-          console.log(err);
         });
     },
     del(i) {
@@ -226,10 +236,8 @@ export default {
         )
         .then((res) => {
           this.get_cart();
-          console.log(33333, res.data.data);
         })
         .catch((err) => {
-          console.log(err);
         });
     },
 
@@ -248,10 +256,22 @@ export default {
             for (var i = 0; i < res.data.data.length; i++) {
               var a = res.data.data[i].price;
               this.sum += Number(res.data.data[i].num * Number(a.substr(1)));
+              if (res.data.data[i].num == 0) {
+                this.axios
+                  .get(
+                    `http://localhost:3000/del_cart?id=${
+                      res.data.data[i].id
+                    }&user=${localStorage.getItem("user")}`
+                  )
+                  .then((res) => {
+                    this.refresh();
+                  })
+                  .catch((err) => {
+                  });
+              }
             }
           })
           .catch((err) => {
-            console.log(err);
           });
       }
     },
@@ -334,6 +354,9 @@ export default {
   height: 0.5rem;
   line-height: 0.5rem;
   padding: 0;
+}
+.van-button--danger {
+  width: 1.1rem !important;
 }
 .van-button {
   border-radius: 0;
@@ -461,5 +484,5 @@ export default {
   position: absolute;
   left: 0.12rem;
   margin-top: 0.14rem;
-}
+} 
 </style>

@@ -9,13 +9,13 @@ const routes = [
     // 首页
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     // 蛋糕列表
     path: '/cake/:id',
     name: 'Cake',
-    component: () => import('../views/Cake.vue')
+    component: () => import('../views/Cake.vue'),
   },
   {
     // 注册
@@ -28,13 +28,14 @@ const routes = [
     path: '/sign',
     name: 'Sign',
     component: () => import('../views/Sign.vue'),
-    redirect:'/sign/phone',
-    children:[{
-      path:'/sign/phone',
-      component:() => import('../components/Phone.vue'),
-    },{
-      path:'/sign/password',
-      component:() => import('../components/Password.vue'),
+    redirect: '/sign/phone',
+    children: [{
+      path: 'phone',
+      component: () => import('../components/Phone.vue'),
+    }, {
+
+      path: 'password',
+      component: () => import('../components/Password.vue'),
     }]
   },
   {
@@ -45,54 +46,78 @@ const routes = [
   },
   {
     // 商品详情页
-    path:'/detail/:id',
-    name:'detail',
+    path: '/detail/:id',
+    name: 'detail',
     component: () => import('../views/Detail.vue'),
   },
   {
     // 购物车页面
-    path:'/cart',
-    name:'cart',
+    path: '/cart',
+    name: 'cart',
     component: () => import('../views/Cart.vue'),
   },
   {
     // 首页banner页面
-    path:'/banner/:id',
-    name:'banner',
+    path: '/banner/:id',
+    name: 'banner',
     component: () => import('../views/Banner.vue'),
   },
   {
     // 送全国
-    path:'/send',
-    name:'send',
+    path: '/send',
+    name: 'send',
     component: () => import('../views/Send.vue'),
   },
   {
     // 个人中心
-    path:'/center',
-    name:'center',
+    path: '/center',
+    name: 'center',
     component: () => import('../views/Center.vue'),
-  },{
+    meta: { requiresAuth: true }
+  }, {
     // 忘记密码
-    path:'/forget',
-    name:'forget',
+    path: '/forget',
+    name: 'forget',
     component: () => import('../views/Forget.vue'),
-  },{
+    meta: { requiresAuth: true }
+  }, {
     // 收货地址
-    path:'/address/:id',
-    name:'address',
+    path: '/address/:id',
+    name: 'address',
     component: () => import('../views/Address.vue'),
-  },{
+    meta: { requiresAuth: true }
+  }, {
     // 地址列表
-    path:'/list_address',
-    name:'list_address',
+    path: '/list_address',
+    name: 'list_address',
     component: () => import('../views/List_address.vue'),
+    meta: { requiresAuth: true }
+  }, {
+    // 订单中心
+    path: '/order',
+    name: 'order',
+    component: () => import('../views/Order.vue'),
+    meta: { requiresAuth: true }
   }
-
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+})
+
+router.beforeEach((to, from, next) => {
+  document.documentElement.scrollTop = 0
+  if (to.meta.requiresAuth) {
+    if (!localStorage.getItem('user')) {
+      next({
+        path: '/sign'
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
